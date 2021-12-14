@@ -1,0 +1,16 @@
+<template>
+  <div class="domo-logo"></div>
+</template>
+<script>
+
+export default {
+};
+</script>
+
+<style scoped>
+.domo-logo {
+  width: 32px !important;
+  height: 32px !important;
+  background-image: url("data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAACzElEQVRYhc2WbWhOYRjHf9ueLGtt3iJZWiE+MC9JiJa8rIaU+KaU8pLWivaJD6ymfZEiS/myL0LEh7UQYsiSlOKDMok2rZbMy4jadut++p+6O93nfk6P7ZmrzrnOfV3Xua7/Oed/XefGQK8BM07HFgMEcvdmgCrgJXCLsZceZTwBTIplrweWR+gahbSQh61pioVm5jg8fS7J1iz+pxRjIBMJoMyeMjmCGoG5QCUwCrwC2oFfCfH7gN2i0iXgciD3IPAjImGLh3zFgfZZEYstMvBMvmEDI7q+k4vUIQAl8rU6RZYYGFCRcif2vmLrHdsu2a4kFK82UJsGQHPMXi77aa0XaN3kydEi32yPr81tw5CUxnxDQB+wU+tN0uc9Oc5Kr/f4vtlTvl1QliWQkwio8MRVSn/3+EbTAhiMrTcA04BzWt+WbvPcG72VR4nZU3TBDQObDdQZOCnb81jsMdnbDdQYWGrgqmyHE0iY5UcIgGX9oKcFOwxkPPHHPbFHAi2YBRAaRDZuLTAFKNH6owjok1NAK7BYsa9TfN7gJLT8eJPi/mFnbYn1MyJYGgmRsAFoTvCt1EgucmxH9eTvgPe63p8TQ4ADDfLtiNnt9/9toN+xNSn2uoFVBlYb6JRtb74k3OaQaZ1j75HtWmwydnhydMlXmgQg9AlmAF+BT8ATYA3QCcwHPgCzFFcvfdCT45B0bVKREIBK+RcBb4FuYCtQA9wF5iluuvQXT47P0lPzATCs8Tqk1uoHmtReC4ERxd2TPuDJEb2Vp0lFcm1IrJQLRJXTXpnody7WP9ZotuC6ZK8DWoCbgdkRBBC92qjV3N6uBuY4643AC+Ch5oB9s5OBB8Aegel2fmCpANgfyAXgj8d3Rj+kSOznWqbZEW3J7Hbsoh6gIrFWoA3H+8jZhgWR/wbAwATUztaMiGGZGm2fCiXb7cluOnrV44UX6PsLOhwPhyp8ShwAAAAASUVORK5CYII=") !important;
+}
+</style>
