@@ -10,11 +10,13 @@ class TeamUsers extends Model
     use HasFactory;
     protected $keyType = 'string';
     protected $fillable = [
+        'id',
         'teamid', 
         'name',
         'deleted',
         'color',
         'real_name',
+        'email',
         'img_url'
     ];    
 }

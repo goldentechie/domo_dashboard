@@ -11,7 +11,7 @@ use App\Models\Channels;
 use App\Models\TeamUsers;
 use Illuminate\Support\Facades\App;
 
-class SlackAPIController extends Controller
+class SlackDashboardAPIController extends Controller
 {
     private $SLACK_TOKEN;
     public function __construct()

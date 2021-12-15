@@ -20,7 +20,7 @@ class CreateEventsTable extends Migration
             $table->string("client_msg_id")->default("none");
             $table->string("user_id")->default("none");
             $table->string("bot_id")->default("none");
-            $table->string("text");
+            $table->string("text")->default("none");
             $table->timestamps();
         });
     }

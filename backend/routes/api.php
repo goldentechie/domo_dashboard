@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\SlackAPIController;
+use App\Http\Controllers\SlackDashboardAPIController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,10 +23,20 @@ use App\Http\Controllers\SlackAPIController;
 // Route::post("refresh", function() {
 //     return "A";
 // });
+Route::prefix('dashboard')->group(function () {
+    Route::post("refresh", [SlackDashboardAPIController::class, 'refresh']);
+    Route::post("getEvents", [SlackDashboardAPIController::class, 'getEvents']);
+    Route::post("getChannels", [SlackDashboardAPIController::class, 'getChannels']);
+    Route::post("getMessages", [SlackDashboardAPIController::class, 'getMessages']);
+    Route::post("getFiles", [SlackDashboardAPIController::class, 'getFiles']);
+    Route::post("test", [SlackDashboardAPIController::class, 'test']);
+});
+
 Route::prefix('slack')->group(function () {
-    Route::post("refresh", [SlackAPIController::class, 'refresh']);
-    Route::post("getEvents", [SlackAPIController::class, 'getEvents']);
-    Route::post("getChannels", [SlackAPIController::class, 'getChannels']);
-    Route::post("getMessages", [SlackAPIController::class, 'getMessages']);
-    Route::post("getFiles", [SlackAPIController::class, 'getFiles']);
+    Route::post("refresh", [SlackDashboardAPIController::class, 'refresh']);
+    Route::post("getEvents", [SlackDashboardAPIController::class, 'getEvents']);
+    Route::post("getChannels", [SlackDashboardAPIController::class, 'getChannels']);
+    Route::post("getMessages", [SlackDashboardAPIController::class, 'getMessages']);
+    Route::post("getFiles", [SlackDashboardAPIController::class, 'getFiles']);
+    Route::post("test", [SlackDashboardAPIController::class, 'test']);
 });
