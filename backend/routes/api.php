@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SlackAPIController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,14 +15,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
 // rescan whole data from slack
-Route::post("refresh", "SlackAPIController@refresh");
-
-Route::post("getEvents", "SlackAPIController@getEvents");
-Route::post("getChannels", "SlackAPIController@getChannels");
-Route::post("getMessages", "SlackAPIController@getMessages");
-Route::post("getFiles", "SlackAPIController@getFiles");
+// Route::post("refresh", function() {
+//     return "A";
+// });
+Route::prefix('slack')->group(function () {
+    Route::post("refresh", [SlackAPIController::class, 'refresh']);
+    Route::post("getEvents", [SlackAPIController::class, 'getEvents']);
+    Route::post("getChannels", [SlackAPIController::class, 'getChannels']);
+    Route::post("getMessages", [SlackAPIController::class, 'getMessages']);
+    Route::post("getFiles", [SlackAPIController::class, 'getFiles']);
+});
