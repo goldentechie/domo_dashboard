@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\SierraAPIController;
+use App\Http\Controllers\SlackAPIController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SlackDashboardAPIController;
@@ -33,10 +35,9 @@ Route::prefix('dashboard')->group(function () {
 });
 
 Route::prefix('slack')->group(function () {
-    Route::post("refresh", [SlackDashboardAPIController::class, 'refresh']);
-    Route::post("getEvents", [SlackDashboardAPIController::class, 'getEvents']);
-    Route::post("getChannels", [SlackDashboardAPIController::class, 'getChannels']);
-    Route::post("getMessages", [SlackDashboardAPIController::class, 'getMessages']);
-    Route::post("getFiles", [SlackDashboardAPIController::class, 'getFiles']);
-    Route::post("test", [SlackDashboardAPIController::class, 'test']);
+    Route::post("event", [SlackAPIController::class, 'index']);
+});
+
+Route::prefix('sierra')->group(function () {
+    Route::post("event", [SierraAPIController::class, 'index']);
 });

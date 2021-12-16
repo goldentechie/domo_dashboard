@@ -2,167 +2,122 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Config;
+use App\Models\SlackMessageTemplates;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-use stdClass;
-use App\Models\Events;
-use App\Models\Config;
-use App\Models\Channels;
-use App\Models\TeamUsers;
 use Illuminate\Support\Facades\App;
+use stdClass;
 
 class SlackAPIController extends Controller
 {
-    private $SLACK_TOKEN;
+    private $TEMPLATE_CLAIM_LEAD;
+    private $SIERRA_API_KEY;
+    private $SLACK_HOOK_URL;
     public function __construct()
     {
-        $this->SLACK_TOKEN = env("SLACK_TOKEN");
+        $this->TEMPLATE_NEW_LEAD = SlackMessageTemplates::where(["title"=>"CLAIM_LEAD"])->first()->template;
+        $this->SIERRA_API_KEY = Config::where(["term"=>"sierra_key"])->first()->value;
+        $this->SLACK_HOOK_URL = Config::where(["term"=>"slack_hook"])->first()->value;
     }
 
-    // utils
-    private function map_messages(stdClass $message)
+    public function index (Request $req)
     {
-        Events::updateOrCreate([
-            'id'=>isset($message->text)?$message->ts:"none",
-            'type'=>"message",
-            'subtype'=>isset($message->subtype)?$message->subtype:"none",
-            'client_msg_id'=>isset($message->client_msg_id)?$message->client_msg_id:"none",
-            'user_id'=>isset($message->user)?$message->user:"none",
-            'bot_id'=>isset($message->bot_id)?$message->bot_id:"none",
-            'text'=>isset($message->text)?$message->text:"none"
-        ]);
+        $lead = $this->getLeadData($req->actions[0]->value);
+        $agent = $this->getAgentData($req->user->username);
+
+        $result = $this->sendClaimLeadSierra($lead, $agent);
+        if (!$result->success) return false;
+
+        $this->sendClaimLeadMessage($this->getMessageTemplate(
+            $this->TEMPLATE_CLAIM_LEAD, 
+            [
+                "LEAD_ID"=>$lead->data->id,
+                "LEAD_PRICE"=>$lead->data->searchPreference->minPrice,
+                "LEAD_CITY"=>$lead->data->searchPreference->city,
+                "LEAD_PICTURE_URL"=>$agent->photo,
+                "AGENT_NAME"=>$agent->firstName
+            ])
+        );
         return true;
     }
-    private function map_channels(stdClass $message)
+    /**
+     * get claimed lead's data from sierra with its id
+     *
+     * @param  string  $id
+     * @return mixed 
+     */
+    private function getLeadData($id)
     {
-        Channels::updateOrCreate([
-            'id'=>$message->id,
-            'name'=>$message->name,
-            'created'=>$message->created,
-            'num_members'=>$message->num_members,
-        ]);
-        return true;
-    }
-    private function map_users(stdClass $message)
-    {
-        TeamUsers::updateOrCreate([
-            'id'=>$message->id,
-            'teamid'=>$message->team_id,
-            'name'=>$message->name,
-            'deleted'=>$message->deleted,
-            'color'=>$message->color,
-            'real_name'=>$message->real_name,
-            'email'=>isset($message->profile->email)?$message->profile->email:"bot",
-            'img_url'=>$message->profile->image_72,
-        ]);
-        return true;
+        return Http::withHeaders([
+            "Content-Type"=>'application/json', 
+            "Sierra-ApiKey"=>$this->SIERRA_API_KEY
+        ])->get(env('SIERRA_GET_LEAD_URL').$id)->json();
     }
 
-    // apis
-    public function refresh(Request $req)
+    /**
+     * get claiming agent data from sierra
+     *
+     * @param  string  $username
+     * @return mixed 
+     */
+    private function getAgentData($username)
     {
-        echo App::environment();
-        if (App::environment() == 'local') return $this->_refresh_local($req);
-        if (App::environment() == 'production') return $this->_refresh_prod($req);
+        return Http::withHeaders([
+            "Content-Type"=>'application/json', 
+            "Sierra-ApiKey"=>$this->SIERRA_API_KEY
+        ])->get(env('SIERRA_GET_AGENT_URL').$username)->json()->data->agents[0];
+    }
+    
+    /**
+     * send lead claim to sierra
+     *
+     * @param  string  $id
+     * @param  mixed $lead
+     * @param  mixed $agent
+     * @return mixed $result
+     */
+    private function sendClaimLeadSierra($lead, $agent)
+    {
+        return Http::withHeaders([
+            "Content-Type"=>'application/json', 
+            "Sierra-ApiKey"=>$this->SIERRA_API_KEY
+        ])->put(env('SIERRA_PUT_LEAD').$lead->data->id, [
+            "assignedTo"=>'{
+                    "agentUserId": '.$agent->id.',
+                    "agentUserEmail": "'.$agent->email.'",
+                    "agentUserPhone": "'.$agent->directPhone.'",
+                    "agentUserFirstName": "'.$agent->firstName.'",
+                    "agentUserLastName": "'.$agent->lastName.'",
+                    "agentSiteId": -1
+            }'])->json();
     }
 
-    public function getEvents(Request $req)
+    /**
+     * send claimed message to slack
+     *
+     * @param  string  $id
+     * @return mixed 
+     */
+    private function sendClaimLeadMessage($template)
     {
-        return Events::where('subtype','!=','none')->paginate(10, ['*'], 'page',$req->page);
-    }
-    public function getChannels(Request $req)
-    {
-        $channels = Channels::all()->toArray();
-        return $channels;
-    }
-    public function getMessages(Request $req)
-    {
-        return Events::whereSubtype("none")->paginate(10, ['*'], 'page',$req->page);
-    }
-    public function getFiles(Request $req)
-    {
-
+        return Http::withHeaders([
+            "Content-Type"=>'application/json'
+        ])->get($this->SLACK_HOOK_URL)->json();
     }
 
-    public function getUsers(Request $req)
+    /**
+     * send claimed message to slack
+     *
+     * @param  string $template
+     * @param  array  $args
+     * @return string template string
+     */
+    private function getMessageTemplate($template, $args)
     {
-        $users = TeamUsers::all()->toArray();
-        return $users;
-    }
-
-
-    // local mode
-    public function _refresh_local(Request $req)
-    {
-        // update last scanned timestamp
-        Config::where(['term'=>'last_scanned'])->update(['value'=>microtime(true)]);
-
-        ////// Events //////
-
-        $response = json_decode(Http::post('http://localhost?filename=event.json')); //devmode
-        if ($response->ok == false) return false;
-        // insert messages to db
-        array_map([$this,'map_messages'],$response->messages);
-
-        ////// Channels //////
-
-        $response = json_decode(Http::post('http://localhost?filename=channellist.json')); //devmode
-        if ($response->ok == false) return false;
-        array_map([$this,'map_channels'],$response->channels);
-
-        ////// TeamUsers //////
-        $response = json_decode(Http::post('http://localhost?filename=userlist.json')); //devmode
-        if ($response->ok == false) return false;
-        array_map([$this,'map_users'],$response->members);
-
-        return true;
-    }
-
-    // produnction mode
-    public function _refresh_prod(Request $req)
-    {
-        $oldest = Config::where(['term'=>'last_scanned'])->first()->value;
-
-        // update last scanned timestamp
-        Config::where(['term'=>'last_scanned'])->update(['value'=>microtime(true)]);
-
-        // Events
-        $cursor = 0;
-        do {
-            //receive data from slack
-            $response = json_decode(Http::post('https://slack.com/api/conversations.history', [
-                'token' => $this->SLACK_TOKEN,
-                'channel' => 'C02MJ2ZSRTL',
-                'limit' => 1000, 
-                'oldest'=>$oldest,
-                'cursor'=>$cursor
-            ]));
-
-            // check if the result is ok
-            if ($response->ok == false) return false;
-
-            // insert messages to db
-            array_map([$this,'map_messages'],$response->messages);
-            if (isset($response->response_metadata)) $cursor = $response->response_metadata->next_cursor;
-            else $cursor = 0;
-        } while ($cursor != 0);
-
-        ////// Channels //////
-
-        $response = json_decode(Http::post('https://slack.com/api/users.list',['token' => $this->SLACK_TOKEN])); //devmode
-        if ($response->ok == false) return false;
-        array_map([$this,'map_channels'],$response->channels);
-
-        ////// TeamUsers //////
-        $response = json_decode(Http::post('https://slack.com/api/conversations.list',['token' => $this->SLACK_TOKEN])); //devmode
-        if ($response->ok == false) return false;
-        array_map([$this,'map_users'],$response->members);
-
-        return true;
-    }
-
-    public function test() {
-        echo env('SLACK_TOKEN');
-        return "token";
+        foreach ($args as $key => $value){
+            str_replace($key,$value,$template);
+        }
+        return $template;
     }
 }

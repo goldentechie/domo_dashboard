@@ -99,19 +99,19 @@ class SlackDashboardAPIController extends Controller
 
         ////// Events //////
 
-        $response = json_decode(Http::post('http://localhost?filename=event.json')); //devmode
+        $response = Http::post('http://localhost?filename=event.json')->json(); //devmode
         if ($response->ok == false) return false;
         // insert messages to db
         array_map([$this,'map_messages'],$response->messages);
 
         ////// Channels //////
 
-        $response = json_decode(Http::post('http://localhost?filename=channellist.json')); //devmode
+        $response = Http::post('http://localhost?filename=channellist.json')->json(); //devmode
         if ($response->ok == false) return false;
         array_map([$this,'map_channels'],$response->channels);
 
         ////// TeamUsers //////
-        $response = json_decode(Http::post('http://localhost?filename=userlist.json')); //devmode
+        $response = Http::post('http://localhost?filename=userlist.json')->json(); //devmode
         if ($response->ok == false) return false;
         array_map([$this,'map_users'],$response->members);
 
@@ -130,13 +130,13 @@ class SlackDashboardAPIController extends Controller
         $cursor = 0;
         do {
             //receive data from slack
-            $response = json_decode(Http::post('https://slack.com/api/conversations.history', [
+            $response = Http::post('https://slack.com/api/conversations.history', [
                 'token' => $this->SLACK_TOKEN,
                 'channel' => 'C02MJ2ZSRTL',
                 'limit' => 1000, 
                 'oldest'=>$oldest,
                 'cursor'=>$cursor
-            ]));
+            ])->json();
 
             // check if the result is ok
             if ($response->ok == false) return false;
@@ -149,12 +149,12 @@ class SlackDashboardAPIController extends Controller
 
         ////// Channels //////
 
-        $response = json_decode(Http::post('https://slack.com/api/users.list',['token' => $this->SLACK_TOKEN])); //devmode
+        $response = Http::post('https://slack.com/api/users.list',['token' => $this->SLACK_TOKEN])->json(); //devmode
         if ($response->ok == false) return false;
         array_map([$this,'map_channels'],$response->channels);
 
         ////// TeamUsers //////
-        $response = json_decode(Http::post('https://slack.com/api/conversations.list',['token' => $this->SLACK_TOKEN])); //devmode
+        $response = Http::post('https://slack.com/api/conversations.list',['token' => $this->SLACK_TOKEN])->json(); //devmode
         if ($response->ok == false) return false;
         array_map([$this,'map_users'],$response->members);
 
