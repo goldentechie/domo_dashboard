@@ -49,8 +49,7 @@ class SlackAPIController extends Controller
      */
     private function getLeadData($id)
     {
-        return Http::withHeaders([
-            "Content-Type"=>'application/json', 
+        return Http::contentType('json')->withHeaders([
             "Sierra-ApiKey"=>$this->SIERRA_API_KEY
         ])->get(env('SIERRA_GET_LEAD_URL').$id)->json();
     }
@@ -63,8 +62,7 @@ class SlackAPIController extends Controller
      */
     private function getAgentData($username)
     {
-        return Http::withHeaders([
-            "Content-Type"=>'application/json', 
+        return Http::contentType('json')->withHeaders([
             "Sierra-ApiKey"=>$this->SIERRA_API_KEY
         ])->get(env('SIERRA_GET_AGENT_URL').$username)->json()->data->agents[0];
     }
@@ -79,18 +77,19 @@ class SlackAPIController extends Controller
      */
     private function sendClaimLeadSierra($lead, $agent)
     {
-        return Http::withHeaders([
-            "Content-Type"=>'application/json', 
-            "Sierra-ApiKey"=>$this->SIERRA_API_KEY
-        ])->put(env('SIERRA_PUT_LEAD').$lead->data->id, [
-            "assignedTo"=>'{
-                    "agentUserId": '.$agent->id.',
-                    "agentUserEmail": "'.$agent->email.'",
-                    "agentUserPhone": "'.$agent->directPhone.'",
-                    "agentUserFirstName": "'.$agent->firstName.'",
-                    "agentUserLastName": "'.$agent->lastName.'",
-                    "agentSiteId": -1
-            }'])->json();
+        return Http::withBody('{
+            "assignedTo":{
+              "agentUserId": '.$agent->id.',
+              "agentUserEmail": "'.$agent->email.'",
+              "agentUserPhone": "'.$agent->directPhone.'",
+              "agentUserFirstName": "'.$agent->firstName.'",
+              "agentUserLastName": "'.$agent->lastName.'",
+              "agentSiteId": -1
+            }
+          }', 'json')
+          ->withHeaders(["Sierra-ApiKey"=>$this->SIERRA_API_KEY])
+          ->put(env('SIERRA_PUT_LEAD').$lead->data->id)
+          ->json();
     }
 
     /**
@@ -101,9 +100,7 @@ class SlackAPIController extends Controller
      */
     private function sendClaimLeadMessage($template)
     {
-        return Http::withHeaders([
-            "Content-Type"=>'application/json'
-        ])->get($this->SLACK_HOOK_URL)->json();
+        return Http::contentType('json')->get($this->SLACK_HOOK_URL)->json();
     }
 
     /**
