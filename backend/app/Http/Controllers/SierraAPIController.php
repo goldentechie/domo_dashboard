@@ -42,8 +42,8 @@ class SierraAPIController extends Controller
     /**
      * send new lead message when sierra triggers a create event
      *
-     * @param  mized  $lead
-     * @return mixed 
+     * @param  mixed lead
+     * @return mixed result
      */
     private function sendNewLead($lead)
     {
