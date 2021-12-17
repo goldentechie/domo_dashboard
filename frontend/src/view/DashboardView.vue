@@ -1,8 +1,8 @@
 <template>
-  <v-app id="inspire">
+  <div>
     <Navigation />
     <router-view class="grey lighten-3"></router-view>
-  </v-app>
+  </div>
 </template>
 
 <script>

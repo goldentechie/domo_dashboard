@@ -1,7 +1,7 @@
 <template>
   <v-card
     elevation="24"
-    class="mx-auto my-5 background"
+    class="mx-auto my-5"
     outlined
     tile
     width="500"
@@ -14,49 +14,44 @@
               <div class="text-center">
                 <h3 class="dark-grey-text mb-5"><strong>Sign in</strong></h3>
               </div>
+              <label>Workspace</label>
+              <select class="browser-default custom-select">
+                <option v-for="{text, value, selected} in basicOptions" :key="value" :value="value" :selected="selected">
+                  {{text}}
+                </option>
+              </select>
               <mdb-input label="Your email" type="email" />
               <mdb-input
                 label="Your password"
                 type="password"
                 containerClass="mb-0"
               />
-              <p class="font-small blue-text d-flex justify-content-end pb-3">
-                Forgot <a href="#" class="blue-text ml-1"> Password?</a>
-              </p>
               <div class="text-center mb-3">
                 <mdb-btn
                   type="button"
-                  gradient="blue"
+                  gradient="peach"
                   rounded
                   class="btn-block z-depth-1a"
                   >Sign in</mdb-btn
                 >
               </div>
-              <p
-                class="
-                  font-small
-                  dark-grey-text
-                  text-right
-                  d-flex
-                  justify-content-center
-                  mb-3
-                  pt-2
-                "
-              >
-                or Create a new bot for your workspace:
+              <p class="font-small dark-grey-text text-right d-flex justify-content-center mb-3 pt-2 ">
+                or
               </p>
               <div class="row my-3 d-flex justify-content-center">
-                <mdb-btn type="button" color="white" rounded class="mr-md-3 z-depth-1a"
-                  >
-                  <mdb-icon fab icon="slack" class="blue-text text-center"/>
+                <mdb-btn
+                  type="button"
+                  color="white"
+                  tag="a"
+                  rounded
+                  class="mr-md-3 z-depth-1a"
+                  href="https://slack.com/oauth/v2/authorize?client_id=2732118217091.2739111978340&scope=channels:history,channels:read,chat:write,commands,emoji:read,files:read,groups:history,groups:read,groups:write,im:history,im:read,incoming-webhook,mpim:history,mpim:read,team:read,users.profile:read,users:read,users:read.email,users:write&user_scope=channels:history,channels:read,files:read,groups:history,im:history,mpim:history,users.profile:read,users:read,users:read.email&redirect_uri=https://thedomogroup.com/api/register"
+                >
+                  <mdb-icon fab size="5x" icon="slack" class="red-text text-center" />
+                  <div>Add a new Slack Bot</div>
                 </mdb-btn>
               </div>
             </mdb-card-body>
-            <mdb-modal-footer class="mx-5 pt-3 mb-1">
-              <p class="font-small grey-text d-flex justify-content-end">
-                Not a member? <a href="#" class="blue-text ml-1"> Sign Up</a>
-              </p>
-            </mdb-modal-footer>
           </mdb-card>
         </mdb-col>
       </mdb-row>
@@ -72,7 +67,6 @@ import {
   mdbInput,
   mdbBtn,
   mdbIcon,
-  mdbModalFooter,
 } from "mdbvue";
 export default {
   name: "FormsPage",
@@ -84,11 +78,15 @@ export default {
     mdbInput,
     mdbBtn,
     mdbIcon,
-    mdbModalFooter,
   },
   data() {
     return {
       showModal: false,
+      basicOptions: [
+        { text: "Option nr 1", value: "Option 1", selected:false },
+        { text: "Option nr 2", value: "Option 2", selected:true },
+        { text: "Option nr 3", value: "Option 3", selected:false },
+      ],
     };
   },
 };
