@@ -1,0 +1,21 @@
+{
+  "ok": true,
+  "team": {
+      "id": "T02MJ3G6D2P",
+      "name": "Integration",
+      "url": "https://integration-ste2932.slack.com/",
+      "domain": "integration-ste2932",
+      "email_domain": "",
+      "icon": {
+          "image_102": "https://a.slack-edge.com/80588/img/avatars-teams/ava_0011-102.png",
+          "image_132": "https://a.slack-edge.com/80588/img/avatars-teams/ava_0011-132.png",
+          "image_230": "https://a.slack-edge.com/80588/img/avatars-teams/ava_0011-230.png",
+          "image_34": "https://a.slack-edge.com/80588/img/avatars-teams/ava_0011-34.png",
+          "image_44": "https://a.slack-edge.com/80588/img/avatars-teams/ava_0011-44.png",
+          "image_68": "https://a.slack-edge.com/80588/img/avatars-teams/ava_0011-68.png",
+          "image_88": "https://a.slack-edge.com/80588/img/avatars-teams/ava_0011-88.png",
+          "image_default": true
+      },
+      "is_verified": false
+  }
+}
