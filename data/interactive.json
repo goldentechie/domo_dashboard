@@ -1,0 +1,40 @@
+{
+	"type": "block_actions",
+	"user": {
+		"id": "U02QGRWDRMM",
+		"username": "gbrown132915",
+		"name": "gbrown132915",
+		"team_id": "T02QUGP4P2R"
+	},
+	"api_app_id": "A02",
+	"token": "Shh_its_a_seekrit",
+	"container": {
+		"type": "message",
+		"text": "The contents of the original message where the action originated"
+	},
+	"trigger_id": "12466734323.1395872398",
+	"team": {
+		"id": "T02QUGP4P2R",
+		"domain": "crteamtest"
+	},
+	"enterprise": null,
+	"is_enterprise_install": false,
+	"state": {
+		"values": {}
+	},
+	"response_url": "https://www.postresponsestome.com/T123567/1509734234",
+	"actions": [
+		{
+			"type": "button",
+			"block_id": "p1aCU",
+			"action_id": "claim-lead",
+			"text": {
+				"type": "plain_text",
+				"text": "Claim this Lead",
+				"emoji": true
+			},
+			"value": "{LEAD_ID}",
+			"action_ts": "1639613738.029591"
+		}
+	]
+}

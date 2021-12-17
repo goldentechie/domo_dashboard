@@ -1,0 +1,319 @@
+Slack -> API : Claim Button pressed
+
+{
+  "$action":{
+    "type": "block_actions",
+    "user": {
+      "id": "U02M3D4C5D5",
+      "username": "sirhenry712",
+      "name": "sirhenry712",
+      "team_id": "T02MJ3G6D2P"
+    },
+    "api_app_id": "A02MR39USA0",
+    "token": "K3wg5hGvUoSSGYKWOKA6hmK2",
+    "container": {
+      "type": "message",
+      "message_ts": "1637793584.000100",
+      "channel_id": "C02MJ2ZSRTL",
+      "is_ephemeral": false
+    },
+    "trigger_id": "2785625430673.2732118217091.8e942070dddbf8fd6fe68804cb76bdb9",
+    "team": {
+      "id": "T02MJ3G6D2P",
+      "domain": "integration-ste2932"
+    },
+    "enterprise": null,
+    "is_enterprise_install": false,
+    "channel": {
+      "id": "C02MJ2ZSRTL",
+      "name": "domo"
+    },
+    "message": {
+      "type": "message",
+      "subtype": "bot_message",
+      "text": "This content can't be displayed.",
+      "ts": "1637793584.000100",
+      "bot_id": "B02MK5ZJPP0",
+      "blocks": [
+        {
+          "type": "section",
+          "block_id": "GF06",
+          "text": {
+            "type": "mrkdwn",
+            "text": "Last chance guys, #newlead, going once, going twice, #2339881",
+            "verbatim": false
+          }
+        },
+        {
+          "type": "section",
+          "block_id": "=81mM",
+          "text": {
+            "type": "mrkdwn",
+            "text": "*You have new Contact from*\n<losangeleshomes.com>\n*Price:* \n*City:* ",
+            "verbatim": false
+          },
+          "accessory": {
+            "type": "image",
+            "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRD2xhgitAer-bNIwOYxcZrQWVZ_9wOr5KGwQ&usqp=CAU",
+            "alt_text": "computer thumbnail"
+          }
+        },
+        {
+          "type": "actions",
+          "block_id": "IVWdN",
+          "elements": [
+            {
+              "type": "button",
+              "action_id": "actionId-0",
+              "text": {
+                "type": "plain_text",
+                "text": "Claim this Lead",
+                "emoji": true
+              },
+              "value": "click_me_123"
+            }
+          ]
+        }
+      ]
+    },
+    "state": {
+      "values": {}
+    },
+    "response_url": "https://hooks.slack.com/actions/T02MJ3G6D2P/2770050319605/6HllnDqN0yRyaJiVPiXiOPum",
+    "actions": [
+      {
+        "action_id": "actionId-0",
+        "block_id": "IVWdN",
+        "text": {
+          "type": "plain_text",
+          "text": "Claim this Lead",
+          "emoji": true
+        },
+        "value": "click_me_123",
+        "type": "button",
+        "action_ts": "1637944981.108068"
+      }
+    ]
+  }
+}
+
+API -> Slack : New Lead Message Template
+{
+	"blocks": [
+	  {
+	    "type": "section",
+	    "text": {
+	      "type": "mrkdwn",
+	      "text": "Last chance guys, #newlead, going once, going twice, #'.$leadData->data->id.'"
+	    }
+	  },
+	  {
+	    "type": "section",
+	    "text": {
+	      "type": "mrkdwn",
+	      "text": "*You have new Contact from*\n<losangeleshomes.com>\n*Price:* \n*City:* '.$leadData->data->streetAddress.'"
+	    },
+	    "accessory": {
+	      "type": "image",
+	      "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRD2xhgitAer-bNIwOYxcZrQWVZ_9wOr5KGwQ&usqp=CAU",
+	      "alt_text": "computer thumbnail"
+	    }
+	  },
+	  {
+	    "type": "actions",
+	    "elements": [
+	      {
+	        "type": "button",
+	        "text": {
+	          "type": "plain_text",
+	          "text": "Claim this Lead",
+	          "emoji": true
+	        },
+	        "value": "click_me_123",
+	        "action_id": "actionId-0"
+	      }
+	    ]
+	  }
+	]
+}
+
+API -> Sierra : Get Lead Data
+{
+    "success": true,
+    "data": {
+        "id": 2328000,
+        "firstName": "Matt",
+        "lastName": "Mandel",
+        "passwordSalt": "95CCA2",
+        "md5PasswordHash": "ACE5E9A2DCE13C575E89F609C0BC5CEA",
+        "leadStatus": "New",
+        "listingAgentStatus": "None",
+        "lenderStatus": "New",
+        "email": "mjoseph23@aol.com",
+        "emailStatus": "Unknown",
+        "phone": "(561) 886-8099",
+        "phoneStatus": "Unknown",
+        "leadType": "Buyer",
+        "assignedTo": {
+            "agentUserId": 1055,
+            "agentUserEmail": "ryan@domorealestate.com",
+            "agentUserPhone": "(310) 982-2107",
+            "agentUserFirstName": "Ryan",
+            "agentUserLastName": "Bunke",
+            "agentSiteId": -1
+        },
+        "listingAgent": {
+            "agentUserId": -1,
+            "agentUserEmail": "",
+            "agentUserPhone": "",
+            "agentUserFirstName": "",
+            "agentUserLastName": "",
+            "agentSiteId": -1
+        },
+        "lender": {
+            "agentUserId": -1,
+            "agentUserEmail": "",
+            "agentUserPhone": "",
+            "agentUserFirstName": "",
+            "agentUserLastName": "",
+            "agentSiteId": -1
+        },
+        "searchPreference": {
+            "city": "El Segundo CA, Hermosa Beach CA, Manhattan Beach CA, Palos Verdes Estates CA, Palos Verdes Peninsula CA, Rancho Palos Verdes CA, Redondo Beach CA, Rolling Hills CA, Rolling Hills Estates CA, Torrance CA",
+            "zip": "90277",
+            "minPrice": 700000.0000,
+            "firstPropertyViewed": "416 Avenue E, Redondo Beach, CA 90277"
+        },
+        "savedSearchesModel": {
+            "totalRecords": 1,
+            "savedSearches": [
+                {
+                    "searchId": 1132145,
+                    "leadId": 2328000,
+                    "mlsRegions": "CRMLS",
+                    "searchName": " General South Bay Property Search",
+                    "sendEmailAlert": "On",
+                    "frequency": 1,
+                    "propertyTypes": {
+                        "singleFamily": "On",
+                        "condo": "Off",
+                        "multiFamily": "Off",
+                        "vacantLand": "Off",
+                        "commercial": "Off",
+                        "commercialLease": "Off",
+                        "rental": "Off",
+                        "farm": "Off",
+                        "auction": "Off"
+                    },
+                    "propertySubTypes": "",
+                    "newConstruction": "Off",
+                    "foreclosures": "Off",
+                    "shortSales": "Off",
+                    "hud": "Off",
+                    "openHouseOnly": "Off",
+                    "propertyStatus": {
+                        "active": "On",
+                        "pending": "Off",
+                        "sold": "Off",
+                        "soldDays": 0
+                    },
+                    "price": {
+                        "min": 700000.0000,
+                        "max": 0.0
+                    },
+                    "beds": 0,
+                    "bedsMax": 0,
+                    "baths": 0,
+                    "bathsMax": 0,
+                    "sqFt": {
+                        "min": 0,
+                        "max": 0
+                    },
+                    "daysOnSite": 0,
+                    "yearBuilt": {
+                        "min": 0,
+                        "max": 0
+                    },
+                    "lotSize": {
+                        "min": 0.0,
+                        "max": 0.0
+                    },
+                    "lotSizeSqFt": {
+                        "min": 0.0,
+                        "max": 0.0
+                    },
+                    "garageSpace": 0,
+                    "sortBy": "DaysOnSiteLowToHigh",
+                    "hoaFees": {
+                        "min": 0.0,
+                        "max": -1.0
+                    },
+                    "basement": "",
+                    "pool": "Off",
+                    "waterfront": "Off",
+                    "cornerLot": "Off",
+                    "gatedCommunity": "Off",
+                    "cul-de-sac": "Off",
+                    "wooded": "Off",
+                    "golfCourse": "Off",
+                    "masterOnMainLevel": "Off",
+                    "location": {
+                        "city": "El Segundo, Manhattan Beach, Hermosa Beach, Redondo Beach, Torrance, Palos Verdes Estates, Palos Verdes Peninsula, Rancho Palos Verdes, Rolling Hills, Rolling Hills Estates",
+                        "county": "",
+                        "state": "CA",
+                        "zipCode": "",
+                        "subdivision": "",
+                        "township": "",
+                        "schoolSystem": "",
+                        "elementarySchool": "",
+                        "middleSchool": "",
+                        "juniorHighSchool": "",
+                        "highSchool": ""
+                    },
+                    "keywords": "",
+                    "searchBoxContents": "",
+                    "mapOptions": {
+                        "coordinates": "",
+                        "boundaries": "",
+                        "mapMinMax": "",
+                        "zoomLevel": -1,
+                        "locationDeltas": {
+                            "latitudeDelta": "",
+                            "longitudeDelta": ""
+                        },
+                        "defaults": {
+                            "coordinates": "33.7723 -118.0948",
+                            "zoomLevel": 9
+                        }
+                    },
+                    "includeAgentIds": [],
+                    "includeOfficeIds": [],
+                    "includeMlsIds": [],
+                    "excludeMlsIds": []
+                }
+            ]
+        },
+        "activeActionPlans": {
+            "1525270": {
+                "planId": 16971,
+                "state": "InProgress",
+                "startDate": "2021-11-20T18:35:07Z"
+            }
+        },
+        "creationDate": "2021-11-20T19:34:30",
+        "updateDate": "2021-11-23T19:29:26.5558704Z",
+        "source": "Google PPC",
+        "marketingEmailOptOut": false,
+        "textOptOut": false,
+        "eAlertOptOut": false,
+        "tags": [
+            "Google Adwords PPC",
+            "houses for sale in redondo beach"
+        ],
+        "streetAddress": "",
+        "city": "Secaucus",
+        "state": "NJ",
+        "zip": "07094",
+        "shortSummary": ""
+    }
+}

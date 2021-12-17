@@ -1,0 +1,51 @@
+_metadata:
+  major_version: 1
+  minor_version: 1
+display_information:
+  name: DOMO Notification
+features:
+  bot_user:
+    display_name: DOMO Notification
+    always_online: false
+oauth_config:
+  redirect_urls:
+    - https://thedomogroup.com/api/register
+  scopes:
+    user:
+      - channels:history
+      - channels:read
+      - files:read
+      - groups:history
+      - im:history
+      - mpim:history
+      - users.profile:read
+      - users:read
+      - users:read.email
+      - team:read
+    bot:
+      - files:read
+      - mpim:read
+      - im:read
+      - commands
+      - incoming-webhook
+      - channels:history
+      - channels:read
+      - chat:write
+      - emoji:read
+      - groups:history
+      - groups:read
+      - groups:write
+      - team:read
+      - users.profile:read
+      - users:read
+      - users:read.email
+      - users:write
+      - im:history
+      - mpim:history
+settings:
+  interactivity:
+    is_enabled: true
+    request_url: https://thedomogroup.com/api/slack/events
+  org_deploy_enabled: false
+  socket_mode_enabled: false
+  token_rotation_enabled: false
