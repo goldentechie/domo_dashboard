@@ -34,6 +34,7 @@ Route::prefix('dashboard')->group(function () {
     Route::post("getChannels", [SlackDashboardAPIController::class, 'getChannels']);
     Route::post("getMessages", [SlackDashboardAPIController::class, 'getMessages']);
     Route::post("getFiles", [SlackDashboardAPIController::class, 'getFiles']);
+    Route::post("getTeams", [SlackDashboardAPIController::class, 'getTeams']);
     Route::post("test", [SlackDashboardAPIController::class, 'test']);
 
     // redirecting api for register team

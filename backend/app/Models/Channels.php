@@ -11,6 +11,7 @@ class Channels extends Model
     protected $keyType = 'string';
     protected $fillable = [
         'id', 
+        'teamid',
         'name',
         'created',
         'num_members'

@@ -15,6 +15,7 @@ class CreateChannelsTable extends Migration
     {
         Schema::create('channels', function (Blueprint $table) {
             $table->id();
+            $table->string("teamid");
             $table->string("name");
             $table->string("created");
             $table->integer("num_members");

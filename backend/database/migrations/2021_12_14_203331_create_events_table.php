@@ -15,6 +15,7 @@ class CreateEventsTable extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
+            $table->string("teamid");
             $table->string("type")->default("message");
             $table->string("subtype")->default("none");
             $table->string("client_msg_id")->default("none");

@@ -90,6 +90,10 @@ class SlackDashboardAPIController extends Controller
         return $users;
     }
 
+    public function getTeams(Request $req)
+    {
+        
+    }
 
     // local mode
     public function _refresh_local(Request $req)

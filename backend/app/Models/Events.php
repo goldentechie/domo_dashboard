@@ -11,6 +11,7 @@ class Events extends Model
     protected $keyType = 'string';
     protected $fillable = [
         'id', 
+        'teamid',
         'type',
         'subtype',
         'client_msg_id',
