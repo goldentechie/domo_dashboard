@@ -8,15 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class TeamUsers extends Model
 {
     use HasFactory;
-    protected $keyType = 'string';
     protected $fillable = [
-        'id',
-        'teamid', 
+        'user_id',
+        'team_id',
         'name',
         'deleted',
         'color',
         'real_name',
         'email',
-        'img_url'
-    ];    
+        'img_url',
+    ];
 }

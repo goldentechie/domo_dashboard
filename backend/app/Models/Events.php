@@ -8,16 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Events extends Model
 {
     use HasFactory;
-    protected $keyType = 'string';
     protected $fillable = [
-        'id', 
-        'teamid',
+        'timestamp',
+        'team_id',
         'type',
         'subtype',
         'client_msg_id',
         'user_id',
         'bot_id',
-        'time_stamp',
-        'text'
-    ]; 
+        'text',
+    ];
 }

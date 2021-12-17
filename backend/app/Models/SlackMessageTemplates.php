@@ -9,8 +9,7 @@ class SlackMessageTemplates extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'id', 
-        'name',
-        'template'
-    ]; 
+        'title',
+        'template',
+    ];
 }

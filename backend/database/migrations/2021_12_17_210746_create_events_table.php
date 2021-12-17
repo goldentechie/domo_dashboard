@@ -15,14 +15,14 @@ class CreateEventsTable extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
-            $table->string("teamid");
-            $table->string("type")->default("message");
-            $table->string("subtype")->default("none");
-            $table->string("client_msg_id")->default("none");
-            $table->string("user_id")->default("none");
-            $table->string("bot_id")->default("none");
-            $table->string("text")->default("none");
-            $table->timestamps();
+            $table->string('timestamp');
+            $table->string('team_id');
+            $table->string('type');
+            $table->string('subtype');
+            $table->string('client_msg_id');
+            $table->string('user_id');
+            $table->string('bot_id');
+            $table->text('text');
         });
     }
 

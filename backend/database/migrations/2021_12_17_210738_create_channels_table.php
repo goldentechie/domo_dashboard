@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSlackMessageTemplatesTable extends Migration
+class CreateChannelsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateSlackMessageTemplatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('slack_message_templates', function (Blueprint $table) {
+        Schema::create('channels', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->text('template');
-            $table->timestamps();
+            $table->string('channel_id');
+            $table->string('team_id');
+            $table->string('name');
+            $table->string('num_members');
         });
     }
 
@@ -28,6 +29,6 @@ class CreateSlackMessageTemplatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('slack_message_templates');
+        Schema::dropIfExists('channels');
     }
 }

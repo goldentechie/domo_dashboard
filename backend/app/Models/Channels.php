@@ -8,12 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Channels extends Model
 {
     use HasFactory;
-    protected $keyType = 'string';
     protected $fillable = [
-        'id', 
-        'teamid',
+        'channel_id',
+        'team_id',
         'name',
-        'created',
-        'num_members'
-    ]; 
+        'num_members',
+    ];
 }
