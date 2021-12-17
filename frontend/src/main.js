@@ -1,3 +1,6 @@
+import '@fortawesome/fontawesome-free/css/all.min.css'
+import 'bootstrap-css-only/css/bootstrap.min.css'
+import 'mdbvue/lib/mdbvue.css'
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -16,8 +19,9 @@ import store from '@/store';
 
 import Donut from 'vue-css-donut-chart';
 import 'vue-css-donut-chart/dist/vcdonut.css';
-Vue.use(Donut);
+import "mdbvue/lib/css/mdb.min.css";
 
+Vue.use(Donut);
 Vue.use(VueRouter);
 Vue.use(VueAxios, axios);
 
