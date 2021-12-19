@@ -31,6 +31,14 @@ LastScan
   lastscanned
 
 
+Config terms
+  last_scanned
+  sierra_key
+  slack_hook
+  slack_token
+  enable
+
+
 /*Table structure for table `channels` */
 
 CREATE TABLE `channels` (
@@ -104,9 +112,3 @@ CREATE TABLE `teams` (
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
   
-
-Config terms
-  last_scanned
-  sierra_key
-  slack_hook
-  slack_token
