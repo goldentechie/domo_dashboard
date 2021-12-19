@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use stdClass;
 use App\Models\Events;
-use App\Models\Config;
+use App\Models\Configs;
 use App\Models\Channels;
 use App\Models\TeamUsers;
 use Illuminate\Support\Facades\App;
@@ -99,7 +99,7 @@ class SlackDashboardAPIController extends Controller
     public function _refresh_local(Request $req)
     {
         // update last scanned timestamp
-        Config::where(['term'=>'last_scanned'])->update(['value'=>microtime(true)]);
+        Configs::where(['term'=>'last_scanned'])->update(['value'=>microtime(true)]);
 
         ////// Events //////
 
@@ -125,10 +125,10 @@ class SlackDashboardAPIController extends Controller
     // produnction mode
     public function _refresh_prod(Request $req)
     {
-        $oldest = Config::where(['term'=>'last_scanned'])->first()->value;
+        $oldest = Configs::where(['term'=>'last_scanned'])->first()->value;
 
         // update last scanned timestamp
-        Config::where(['term'=>'last_scanned'])->update(['value'=>microtime(true)]);
+        Configs::where(['term'=>'last_scanned'])->update(['value'=>microtime(true)]);
 
         // Events
         $cursor = 0;

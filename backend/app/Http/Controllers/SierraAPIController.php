@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Config;
+use App\Models\Configs;
 use App\Models\SlackMessageTemplates;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -15,9 +15,9 @@ class SierraAPIController extends Controller
     //
     public function __construct()
     {
-        $this->TEMPLATE_NEW_LEAD = SlackMessageTemplates::where(["title"=>"NEW_LEAD"])->first()->template;
-        $this->SIERRA_API_KEY = Config::where(["term"=>"sierra_key"])->first()->value;
-        $this->SLACK_HOOK_URL = Config::where(["term"=>"slack_hook"])->first()->value;
+        // $this->TEMPLATE_NEW_LEAD = SlackMessageTemplates::where(["title"=>"NEW_LEAD"])->first()->template;
+        // $this->SIERRA_API_KEY = Configs::where(["term"=>"sierra_key"])->first()->value;
+        // $this->SLACK_HOOK_URL = Configs::where(["term"=>"slack_hook"])->first()->value;
     }
     public function index (Request $req)
     {

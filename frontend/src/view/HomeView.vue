@@ -8,17 +8,6 @@
               <div class="text-center">
                 <h3 class="dark-grey-text mb-5"><strong>Sign in</strong></h3>
               </div>
-              <label>Workspace</label>
-              <select class="browser-default custom-select">
-                <option
-                  v-for="{ text, value, selected } in teams"
-                  :key="value"
-                  :value="value"
-                  :selected="selected"
-                >
-                  {{ text }}
-                </option>
-              </select>
               <mdb-input label="Your email" type="email" />
               <mdb-input
                 label="Your password"
@@ -49,8 +38,8 @@
               </p>
               <div class="row my-3 d-flex justify-content-center">
                 <a
-                  href="https://slack.com/oauth/v2/authorize?client_id=2732118217091.2739111978340&scope=channels:history,channels:read,chat:write,commands,emoji:read,files:read,groups:history,groups:read,groups:write,im:history,im:read,incoming-webhook,mpim:history,mpim:read,team:read,users.profile:read,users:read,users:read.email,users:write&user_scope=channels:history,channels:read,files:read,groups:history,im:history,mpim:history,users.profile:read,users:read,users:read.email&redirect_uri=https://thedomogroup.com/api/register"
-                  class='slack-btn'
+                  href="https://slack.com/oauth/v2/authorize?client_id=2732118217091.2739111978340&redirect_uri=https://thedomogroup.com/api/register/&scope=channels:history,channels:read,chat:write,commands,emoji:read,files:read,groups:history,groups:read,groups:write,im:history,im:read,incoming-webhook,mpim:history,mpim:read,team:read,users.profile:read,users:read,users:read.email,users:write&user_scope=team:read,channels:history,channels:read,files:read,groups:history,im:history,mpim:history,users.profile:read,users:read,users:read.email"
+                  class="slack-btn"
                   ><svg
                     xmlns="http://www.w3.org/2000/svg"
                     style="height: 20px; width: 20px; margin-right: 12px"
@@ -107,8 +96,10 @@ export default {
   },
   mounted() {
     // bring teams
-    this.axios.get("http://localhost:8000/")
-  }
+    this.axios
+      .post("http://localhost:8000/api/dashboard/getTeams")
+      .then((response) => console.log(response.data));
+  },
 };
 </script>
 <style>
