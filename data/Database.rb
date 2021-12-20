@@ -1,5 +1,9 @@
 Database
 
+u694294751_domo_slack_bot
+u694294751_root
+qJh;$:2I
+
 TeamUsers
   id
   teamid
