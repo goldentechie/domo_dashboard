@@ -1,5 +1,7 @@
 import HomeView from './view/HomeView.vue';
 import DashboardView from './view/DashboardView.vue';
+import RegisterView from './view/RegisterView.vue';
+
 import Dashboard from './components/Dashboard/Dashboard.vue';
 import Events from './components/Dashboard/Events.vue';
 import Messages from './components/Dashboard/Messages.vue';
@@ -26,5 +28,10 @@ export const routes = [
             {path: '/admin/files',component: Files},
             {path: '/admin/teams',component: Teams},
         ]
+    },
+    {
+        name: 'register',
+        path: '/register',
+        component: RegisterView
     }
 ];

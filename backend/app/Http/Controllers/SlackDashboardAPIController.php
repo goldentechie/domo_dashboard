@@ -8,6 +8,7 @@ use stdClass;
 use App\Models\Events;
 use App\Models\Configs;
 use App\Models\Channels;
+use App\Models\Teams;
 use App\Models\TeamUsers;
 use Illuminate\Support\Facades\App;
 
@@ -125,10 +126,10 @@ class SlackDashboardAPIController extends Controller
     // produnction mode
     public function _refresh_prod(Request $req)
     {
-        $oldest = Configs::where(['term'=>'last_scanned'])->first()->value;
+        $oldest = Teams::where(['team'=>'last_scanned'])->first()->value;
 
         // update last scanned timestamp
-        Configs::where(['term'=>'last_scanned'])->update(['value'=>microtime(true)]);
+        Configs::where(['term'=>'last_scanned'])->update(['last_scanned'=>microtime(true)]);
 
         // Events
         $cursor = 0;
@@ -163,6 +164,11 @@ class SlackDashboardAPIController extends Controller
         array_map([$this,'map_users'],$response->members);
 
         return true;
+    }
+
+    public function findUserId($id)
+    {
+
     }
 
     public function test() {

@@ -35,6 +35,8 @@ Route::prefix('dashboard')->group(function () {
     Route::post("getMessages", [SlackDashboardAPIController::class, 'getMessages']);
     Route::post("getFiles", [SlackDashboardAPIController::class, 'getFiles']);
     Route::post("getTeams", [SlackDashboardAPIController::class, 'getTeams']);
+    Route::post("findUserId", [SlackDashboardAPIController::class, 'findUserId']);
+
     Route::post("test", [SlackDashboardAPIController::class, 'test']);
     Route::get("test", [SlackDashboardAPIController::class, 'test']);
 

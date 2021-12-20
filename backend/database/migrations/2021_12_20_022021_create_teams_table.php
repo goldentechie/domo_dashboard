@@ -17,6 +17,13 @@ class CreateTeamsTable extends Migration
             $table->id();
             $table->string('team_id');
             $table->string('name');
+            $table->string('userid');
+            $table->string('password');
+            $table->string('sierrakey');
+            $table->string('last_scanned');
+            $table->string('slack_hook_url');
+            $table->string('slack_user_token');
+            $table->string('enabled');
         });
     }
 
