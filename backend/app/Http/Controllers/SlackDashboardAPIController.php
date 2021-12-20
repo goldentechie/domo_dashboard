@@ -166,9 +166,13 @@ class SlackDashboardAPIController extends Controller
         return true;
     }
 
-    public function findUserId($id)
+    public function findUserId(Request $req)
     {
-
+        $res = Teams::where(['userid'=>$req->id]);
+        if ($res->count() == 0)
+            return ['ok'=>false, 'res'=>null];
+        else 
+            return ['ok'=>true, 'res'=>$res->first()];
     }
 
     public function test() {

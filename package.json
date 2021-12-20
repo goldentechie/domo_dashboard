@@ -1,0 +1,21 @@
+{
+  "name": "domo_dashboard",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "frontend": "cd frontend && yarn serve",
+    "backend": "cd backend && php artisan serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/goldentechie/domo_dashboard.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/goldentechie/domo_dashboard/issues"
+  },
+  "homepage": "https://github.com/goldentechie/domo_dashboard#readme"
+}

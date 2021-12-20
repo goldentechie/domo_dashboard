@@ -120,9 +120,7 @@ export default {
   },
   mounted() {
     // bring teams
-    this.axios
-      .post(`${process.env.VUE_APP_API_URL}/api/dashboard/usernamevalidation`)
-      .then((response) => console.log(response.data));
+    console.log(this.$route.query);
   },
   methods: {
     checkForm(event) {
@@ -135,9 +133,27 @@ export default {
     },
     validate(key) {
       if (key === "userid") {
+        console.log(this.data[key].length);
+        if (this.data[key].length == 0) 
+        {
+          this.validation[key].valid = false;
+          this.validation[key].invalidFeedback = "Type your user ID";
+        }
+        else {
         this.axios
-          .post(`${process.env.VUE_APP_API_URL}/api/dashboard/findUserId`)
-          .then((response) => console.log(response.data));
+          .post(`${process.env.VUE_APP_API_URL}/api/dashboard/findUserId`, {
+            id: this.data.userid,
+          })
+          .then((response) => {
+            if(response.data.ok)
+            {
+              this.validation[key].valid = false;
+              this.validation[key].invalidFeedback = "That user id is taken. Try another.";
+            }
+            else 
+              this.validation[key].valid = true;
+          });
+        }
         this.validation[key].validated = true;
       }
       if (key === "password") {
@@ -162,39 +178,35 @@ export default {
       }
       if (key === "confirm") {
         // check length
-        console.log(this.validation.password.valid)
-        console.log(this.data[key].length)
-        console.log(this.data['password'] === this.data[key])
+        console.log(this.validation.password.valid);
+        console.log(this.data[key].length);
+        console.log(this.data["password"] === this.data[key]);
         if (this.validation.password.valid) {
-          if (this.data[key].length == 0)
-          {
+          if (this.data[key].length == 0) {
             this.validation[key].valid = false;
-            this.validation[key].invalidFeedback =
-            "Type confirm password";
-          } else if (this.data['password'] === this.data[key])
-          {
+            this.validation[key].invalidFeedback = "Type confirm password";
+          } else if (this.data["password"] === this.data[key]) {
             this.validation[key].valid = true;
-          }
-          else {
+          } else {
             this.validation[key].valid = false;
-            this.validation[key].invalidFeedback =
-            "Password does not match!";
+            this.validation[key].invalidFeedback = "Password does not match!";
           }
         } else {
           this.validation[key].valid = false;
-          this.validation[key].invalidFeedback =
-            "Please type valid password";
+          this.validation[key].invalidFeedback = "Please type valid password";
         }
         this.validation[key].validated = true;
       }
-      if (key === 'sierrakey')
-      {
-        if (/[a-z0-9A-Z]{8}-[a-z0-9A-Z]{4}-[a-z0-9A-Z]{4}-[a-z0-9A-Z]{4}-[a-z0-9A-Z]{12}/gimsu.test(this.data[key]))
+      if (key === "sierrakey") {
+        if (
+          /[a-z0-9A-Z]{8}-[a-z0-9A-Z]{4}-[a-z0-9A-Z]{4}-[a-z0-9A-Z]{4}-[a-z0-9A-Z]{12}/gimsu.test(
+            this.data[key]
+          )
+        )
           this.validation[key].valid = true;
         else {
           this.validation[key].valid = false;
-          this.validation[key].invalidFeedback =
-            "Invalid Sierra API Key";
+          this.validation[key].invalidFeedback = "Invalid Sierra API Key";
         }
         this.validation[key].validated = true;
       }
