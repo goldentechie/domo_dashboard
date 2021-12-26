@@ -38,7 +38,7 @@
               </p>
               <div class="row my-3 d-flex justify-content-center">
                 <a
-                  href="https://slack.com/oauth/v2/authorize?client_id=2732118217091.2739111978340&redirect_uri=https://thedomogroup.com/api/register/&scope=channels:history,channels:read,chat:write,commands,emoji:read,files:read,groups:history,groups:read,groups:write,im:history,im:read,incoming-webhook,mpim:history,mpim:read,team:read,users.profile:read,users:read,users:read.email,users:write&user_scope=team:read,channels:history,channels:read,files:read,groups:history,im:history,mpim:history,users.profile:read,users:read,users:read.email"
+                  href="https://slack.com/oauth/v2/authorize?client_id=2732118217091.2739111978340&scope=channels:history,channels:read,chat:write,commands,emoji:read,files:read,groups:history,groups:read,groups:write,im:history,im:read,incoming-webhook,mpim:history,mpim:read,team:read,users.profile:read,users:read,users:read.email,users:write&user_scope=team:read,channels:history,channels:read,files:read,groups:history,im:history,mpim:history,users.profile:read,users:read,users:read.email"
                   class="slack-btn"
                   ><svg
                     xmlns="http://www.w3.org/2000/svg"
